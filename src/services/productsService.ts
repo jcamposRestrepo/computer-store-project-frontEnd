@@ -306,7 +306,7 @@ export async function createProduct(productData: CreateProductData): Promise<Api
     console.log('Token que se enviará:', token.substring(0, 50) + '...');
     
     // Preparar el body como JSON
-    const body: any = {
+    const body: Record<string, unknown> = {
       name: productData.name,
       description: productData.description,
       price: productData.price,
@@ -410,7 +410,7 @@ export async function updateProduct(productData: UpdateProductData): Promise<Api
     const token = await getAuthToken();
 
     // Preparar el body como JSON (misma estructura que createProduct)
-    const body: any = {
+    const body: Record<string, unknown> = {
       name: productData.name,
       description: productData.description,
       price: productData.price,

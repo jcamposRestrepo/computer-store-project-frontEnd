@@ -1,14 +1,10 @@
 // Tipos para las respuestas de autenticación
-import { signInWithCustomTokenAsync, getIdToken } from './firebase';
+import { signInWithCustomTokenAsync } from './firebase';
+import { FirestoreTimestamp } from './types/product.types';
 
 export interface LoginRequest {
   email: string;
   password: string;
-}
-
-export interface FirestoreTimestamp {
-  _seconds: number;
-  _nanoseconds: number;
 }
 
 export interface User {

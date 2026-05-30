@@ -5,6 +5,30 @@ import { Product } from '@/hooks/useProducts';
 import { useState, useMemo, useEffect } from 'react';
 import { getProducts, ApiProduct, API_BASE_URL } from '@/services';
 
+// Función para convertir timestamp de Firestore a string ISO
+function convertFirestoreTimestamp(timestamp: string | { _seconds: number; _nanoseconds: number }): string {
+  if (typeof timestamp === 'string') {
+    return timestamp;
+  }
+  // Convertir timestamp de Firestore a Date y luego a ISO string
+  const date = new Date(timestamp._seconds * 1000 + timestamp._nanoseconds / 1000000);
+  return date.toISOString();
+}
+
+// Función para convertir specifications (puede ser array de strings o objeto)
+function convertSpecifications(specs: Record<string, string> | string[] | undefined): Record<string, string> {
+  if (!specs) return {};
+  if (Array.isArray(specs)) {
+    // Si es un array de strings, convertir a objeto
+    const result: Record<string, string> = {};
+    specs.forEach((spec, index) => {
+      result[`Especificación ${index + 1}`] = spec;
+    });
+    return result;
+  }
+  return specs;
+}
+
 // Función para mapear ApiProduct a Product
 function mapApiProductToProduct(apiProduct: ApiProduct): Product {
   // Construir URL completa de la imagen
@@ -37,9 +61,9 @@ function mapApiProductToProduct(apiProduct: ApiProduct): Product {
     inStock: apiProduct.inStock,
     badge: apiProduct.badge || undefined,
     description: apiProduct.description,
-    specifications: apiProduct.specifications,
-    type: apiProduct.productType,
-    createdAt: apiProduct.createdAt,
+    specifications: convertSpecifications(apiProduct.specifications),
+    type: apiProduct.productType || 'computadora',
+    createdAt: convertFirestoreTimestamp(apiProduct.createdAt),
   };
 }
 

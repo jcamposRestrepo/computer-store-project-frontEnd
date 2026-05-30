@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { useProducts, Product } from '@/hooks/useProducts';
+import { Product } from '@/hooks/useProducts';
 import { createProduct, updateProduct as updateProductAPI, getCategoryIdByName, getCategories, createCategory, CreateProductData, UpdateProductData, Category, CreateCategoryData } from '@/services';
 import { createPortal } from 'react-dom';
 
@@ -31,10 +31,11 @@ export default function ProductUploadForm({ onSuccess, onCancel, editingProduct,
   const initialImageTypes = initialImageUrls.map(url => 
     url && url.startsWith('data:') ? 'file' : 'url'
   ) as ('url' | 'file')[];
+  const extProduct = editingProduct as unknown as { comparePrice?: number; stock?: number; minStock?: number; tags?: string[] } | null;
   const [formData, setFormData] = useState({
     name: editingProduct?.name || '',
     price: editingProduct?.price?.toString() || '',
-    comparePrice: (editingProduct as any)?.comparePrice?.toString() || (editingProduct?.originalPrice?.toString() || ''),
+    comparePrice: extProduct?.comparePrice?.toString() || (editingProduct?.originalPrice?.toString() || ''),
     shortDescription: '',
     image: editingProduct?.image || '',
     imageUrls: initialImageUrls,
@@ -42,10 +43,10 @@ export default function ProductUploadForm({ onSuccess, onCancel, editingProduct,
     imageTypes: initialImageTypes, // Tipo de cada imagen (detectado automáticamente)
     category: editingProduct?.category || '',
     description: editingProduct?.description || '',
-    type: editingProduct?.type || 'componente' as 'componente' | 'computadora',
+    type: (editingProduct?.type || 'componente') as 'componente' | 'computadora',
     inStock: editingProduct?.inStock ?? true,
-    stock: (editingProduct as any)?.stock?.toString() || '0',
-    minStock: (editingProduct as any)?.minStock?.toString() || '0',
+    stock: extProduct?.stock?.toString() || '0',
+    minStock: extProduct?.minStock?.toString() || '0',
     badge: editingProduct?.badge || '',
     brand: '',
     model: '',
@@ -56,7 +57,7 @@ export default function ProductUploadForm({ onSuccess, onCancel, editingProduct,
     specifications: editingProduct?.specifications 
       ? Object.entries(editingProduct.specifications).map(([key, value]) => `${key}: ${value}`).join('\n')
       : '',
-    tags: ((editingProduct as any)?.tags as string[] | undefined)?.join(', ') || '',
+    tags: extProduct?.tags?.join(', ') || '',
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -656,6 +657,7 @@ export default function ProductUploadForm({ onSuccess, onCancel, editingProduct,
 
                 {previewUrl && (
                   <div className="mt-2 w-32 h-32 border border-gray-300 rounded-lg overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={previewUrl}
                       alt={`Preview ${index + 1}`}

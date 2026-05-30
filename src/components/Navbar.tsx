@@ -14,7 +14,6 @@ export default function Navbar() {
   const { 
     getCartSummary, 
     isHydrated, 
-    isAuthenticated: isCartAuthenticated,
     loadCartFromServer 
   } = useCart();
   const router = useRouter();

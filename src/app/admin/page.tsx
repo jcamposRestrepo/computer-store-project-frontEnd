@@ -235,7 +235,7 @@ export default function AdminPage() {
               
               <select
                 value={filterType}
-                onChange={(e) => setFilterType(e.target.value as any)}
+                onChange={(e) => setFilterType(e.target.value as 'all' | 'componente' | 'computadora')}
                 className="border border-gray-300 rounded-md px-3 py-2"
               >
                 <option value="all">Todos los productos</option>
@@ -377,6 +377,7 @@ export default function AdminPage() {
                     <tr key={product.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
                         <div className="flex items-center min-w-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={product.image}
                             alt={product.name}

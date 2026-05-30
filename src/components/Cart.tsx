@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { useCart, CartItem } from '@/hooks/useCart';
-import { Product } from '@/hooks/useProducts';
+import { useCart } from '@/hooks/useCart';
 
 interface CartProps {
   isOpen: boolean;

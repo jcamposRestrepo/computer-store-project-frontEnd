@@ -10,7 +10,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart, isInCart, getItemQuantity, isHydrated, isLoading } = useCart();
+  const { addToCart, isInCart, getItemQuantity, isHydrated } = useCart();
   const [isAdding, setIsAdding] = useState(false);
   const { id, name, price, originalPrice, image, category, rating = 0, reviews = 0, inStock = true, badge } = product;
   

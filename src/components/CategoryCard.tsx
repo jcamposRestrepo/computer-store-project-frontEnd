@@ -13,6 +13,7 @@ export default function CategoryCard({ name, description, image, productCount, h
       className="group block bg-white rounded-lg shadow-custom hover:shadow-xl transition-all duration-300 overflow-hidden"
     >
       <div className="relative aspect-video overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={image}
           alt={name}

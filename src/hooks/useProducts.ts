@@ -1117,7 +1117,7 @@ export function useProducts() {
 
   // Función global para debug
   if (typeof window !== 'undefined') {
-    (window as any).resetTechStoreData = () => {
+    (window as unknown as { resetTechStoreData: () => void }).resetTechStoreData = () => {
       console.log('Limpiando localStorage y cargando datos por defecto...');
       localStorage.removeItem('techstore-products');
       window.location.reload();

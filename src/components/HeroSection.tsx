@@ -64,6 +64,7 @@ export default function HeroSection({
                 : 'opacity-0 scale-105'
             }`}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={image}
               alt={`Hero background ${index + 1}`}
