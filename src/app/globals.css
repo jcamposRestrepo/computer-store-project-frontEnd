@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+:root {
+  /* Paleta de colores basada en la imagen */
+  --deep-indigo: #27254C;
+  --slate-purple: #564A94;
+  --lavender-gray: #9B8AB4;
+  --off-white: #F2ECF8;
+  --sky-blue: #45B0D2;
+  --dark-charcoal: #1F232F;
+  
+  /* Colores del tema */
+  --background: var(--off-white);
+  --foreground: var(--dark-charcoal);
+  --primary: var(--deep-indigo);
+  --secondary: var(--slate-purple);
+  --accent: var(--sky-blue);
+  --muted: var(--lavender-gray);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+/* Utilidades personalizadas */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.bg-gradient-accent {
+  background: linear-gradient(135deg, var(--accent), var(--sky-blue));
+}
+
+.shadow-custom {
+  box-shadow: 0 10px 25px -5px rgba(39, 37, 76, 0.1), 0 10px 10px -5px rgba(39, 37, 76, 0.04);
+}
+
+/* Animaciones personalizadas */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(69, 176, 210, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(69, 176, 210, 0.8), 0 0 30px rgba(69, 176, 210, 0.6);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Clases de animación */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-count-up {
+  animation: countUp 1s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-spin-slow {
+  animation: spinSlow 3s linear infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-zoom-in {
+  animation: zoomIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Efectos hover mejorados */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px -5px rgba(39, 37, 76, 0.2);
+}
+
+/* Animación de entrada escalonada */
+.stagger-animation > * {
+  animation-delay: calc(var(--stagger-delay, 0) * 0.1s);
+}
+
+/* Efectos de partículas flotantes */
+.floating-particles::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(69, 176, 210, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(86, 74, 148, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(39, 37, 76, 0.05) 0%, transparent 50%);
+  animation: float 6s ease-in-out infinite;
+  pointer-events: none;
+}
