@@ -1,6 +1,7 @@
 // Tipos para las respuestas de autenticación
 import { signInWithCustomTokenAsync } from './firebase';
 import { FirestoreTimestamp } from './types/product.types';
+import { API_BASE_URL } from './productsService';
 
 export interface LoginRequest {
   email: string;
@@ -77,7 +78,7 @@ export const authService = {
    */
   async login(email: string, password: string): Promise<LoginResponse> {
     try {
-      const response = await fetch('http://localhost:3001/api/v1/auth/login', {
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -196,7 +197,7 @@ export const authService = {
    */
   async register(data: RegisterRequest): Promise<RegisterResponse> {
     try {
-      const response = await fetch('http://localhost:3001/api/v1/auth/register', {
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -280,7 +281,7 @@ export const authService = {
       const lastName = lastNameParts.join(' ') || '';
 
       // Enviar token de Google al backend para crear el usuario
-      const response = await fetch('http://localhost:3001/api/v1/auth/register', {
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
