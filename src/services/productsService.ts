@@ -1,6 +1,11 @@
 import { ProductsResponse, ProductsQueryParams, ApiProduct, Category } from './types/product.types';
 
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
+// En el browser usamos el proxy de Next.js para evitar CORS.
+// En el servidor (SSR/build) usamos la URL directa del backend.
+const isBrowser = typeof window !== 'undefined';
+export const API_BASE_URL = isBrowser
+  ? '/api/proxy'
+  : (process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001');
 
 /**
  * Construye la URL con query parameters
